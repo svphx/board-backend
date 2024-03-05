@@ -1,5 +1,5 @@
 import { userService, IUserService } from "services/user";
-import { MiddlewareFunction } from "shared/middlewares";
+import { MiddlewareFunctionWithAuthData } from "shared/middlewares";
 import { messageText, statusCodes } from "shared/utils";
 
 import { IUserHttpController } from "./types";
@@ -7,7 +7,7 @@ import { IUserHttpController } from "./types";
 class UserHttpController implements IUserHttpController {
   constructor(private readonly service: IUserService) {}
 
-  createUser: MiddlewareFunction = async (req, res, next) => {
+  createUser: MiddlewareFunctionWithAuthData = async (req, res, next) => {
     try {
       await this.service.createUser(req.body);
       res
@@ -17,7 +17,7 @@ class UserHttpController implements IUserHttpController {
       next(e);
     }
   };
-  authorizeUser: MiddlewareFunction = async (req, res, next) => {
+  authorizeUser: MiddlewareFunctionWithAuthData = async (req, res, next) => {
     try {
       const token = await this.service.authorizeUser(req.body);
       res.status(statusCodes.okStatusCode).send({ token: token });
@@ -25,7 +25,7 @@ class UserHttpController implements IUserHttpController {
       next(e);
     }
   };
-  getUserById: MiddlewareFunction = async (req, res, next) => {
+  getUserById: MiddlewareFunctionWithAuthData = async (req, res, next) => {
     try {
       const user = await this.service.getUserById(req.params.userId);
 
@@ -34,10 +34,9 @@ class UserHttpController implements IUserHttpController {
       next(e);
     }
   };
-  getCurrentUser: MiddlewareFunction = async (req, res, next) => {
+  getCurrentUser: MiddlewareFunctionWithAuthData = async (req, res, next) => {
     try {
-      //@ts-ignore
-      const user = await this.service.getUserById(req.user.id);
+      const user = await this.service.getUserById(req.user?.id as string);
 
       res.status(statusCodes.okStatusCode).send({ user });
     } catch (e) {

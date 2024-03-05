@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { User } from "./type";
+import { User } from "./types";
 import { isEmail } from "./helpers";
 
 const userSchema = new mongoose.Schema<User>(

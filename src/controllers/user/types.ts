@@ -1,7 +1,7 @@
-import { MiddlewareFunction } from "shared";
+import { MiddlewareFunctionWithAuthData } from "shared";
 
 export interface IUserHttpController {
-  createUser: MiddlewareFunction;
-  authorizeUser: MiddlewareFunction;
-  getUserById: MiddlewareFunction;
+  createUser: MiddlewareFunctionWithAuthData;
+  authorizeUser: MiddlewareFunctionWithAuthData;
+  getUserById: MiddlewareFunctionWithAuthData;
 }

@@ -13,3 +13,13 @@ export type ErrorMiddlewareFunction = (
   response: Response,
   next: NextFunction
 ) => void;
+
+export type MiddlewareFunctionWithAuthData = (
+  request: Request & {
+    user?: {
+      id: string;
+    };
+  },
+  response: Response,
+  next: NextFunction
+) => void;

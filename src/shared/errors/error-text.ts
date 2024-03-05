@@ -6,6 +6,7 @@ export const errorText = {
   notFound: {
     userNotFound: "Пользователь не найден",
     routeNotFound: "Роут не найден",
+    boardNotFound: "Доска не найдена",
   },
   forbidden: "Доступ запрещен",
   internal: "Серверная ошибка",
@@ -16,5 +17,6 @@ export const errorText = {
   badRequest: {
     validationError: "Ошибка. Некорректные данные",
     invalidUserId: "Ошибка. Некорректный id пользователя",
+    invalidBoardId: "Ошибка. Некорректный id доски",
   },
 };

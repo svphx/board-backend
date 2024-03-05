@@ -9,8 +9,7 @@ import {
   errorText,
 } from "shared";
 
-import { IUserService } from "./types";
-import { AuthorizeUserDto, CreateUserDto } from "./dto";
+import { IUserService, AuthorizeUserDto, CreateUserDto } from "./types";
 
 class UserService implements IUserService {
   constructor(private readonly model: Model<User>) {}
@@ -41,13 +40,9 @@ class UserService implements IUserService {
       throw createUnauthorizedError(errorText.notAuthorized.wrongCredentials);
     }
     //если все ок, создаем токен, вшиваем в него id пользователя и возвращаем токен
-    const token = jwt.sign(
-      { id: user._id },
-      process.env.JWT_SECRET || "e5941b231be3be054dcec54b7cf2f9f7",
-      {
-        expiresIn: "2d",
-      }
-    );
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET as string, {
+      expiresIn: "2d",
+    });
 
     return token;
   }

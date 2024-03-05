@@ -1,5 +1,4 @@
 import { User } from "db";
-import { CreateUserDto, AuthorizeUserDto } from "./dto";
 
 export interface IUserService {
   createUser(dto: CreateUserDto): Promise<User | void>;
@@ -10,4 +9,15 @@ export interface IUserService {
     errorMessage: string
   ): Promise<void>;
   getUserById(id: string): Promise<User | void>;
+}
+
+export interface AuthorizeUserDto {
+  email: string;
+  password: string;
+}
+
+export interface CreateUserDto {
+  name: string;
+  email: string;
+  password: string;
 }
