@@ -9,9 +9,9 @@ export interface IBoardService {
   // addUserToBoard(dto: IdsDto): Promise<Board | void | null>;
   // removeUserFromBoard(dto: IdsDto): Promise<Board | void | null>;
 
-  // createColumn(dto: CreateColumnDto): Promise<Board | void | null>;
-  // editColumn(dto: EditColumnDto): Promise<Board | void>;
-  // deleteColumn(id: string): Promise<Board | void>;
+  createColumn(dto: CreateColumnDto): Promise<Board | void | null>;
+  editColumn(dto: EditColumnDto): Promise<Board | void>;
+  deleteColumn(dto: DeleteColumnDto): Promise<Board | void>;
 }
 
 export interface CreateBoardDto {
@@ -35,4 +35,9 @@ export interface CreateColumnDto {
 export interface EditColumnDto {
   name: string;
   boardId: string;
+  columnId: string;
+}
+export interface DeleteColumnDto {
+  boardId: string;
+  columnId: string;
 }

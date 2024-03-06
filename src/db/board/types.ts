@@ -8,7 +8,6 @@ export type Board = {
   cards: BoardCard[];
 };
 export type BoardColumn = {
-  id: string;
   name: string;
   cards: string[];
 };

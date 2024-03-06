@@ -12,13 +12,11 @@ class BoardHttpController implements IBoardHttpController {
 
   createBoard: MiddlewareFunctionWithAuthData = async (req, res, next) => {
     try {
-      await this.service.createBoard({
+      const board = await this.service.createBoard({
         name: req.body.name as string,
         participants: [req.user?.id as string],
       });
-      res
-        .status(statusCodes.createdStatusCode)
-        .send({ message: messageText.boardCreated });
+      res.status(statusCodes.createdStatusCode).send({ board });
     } catch (e) {
       next(e);
     }
@@ -56,9 +54,42 @@ class BoardHttpController implements IBoardHttpController {
   addUserToBoard: MiddlewareFunctionWithAuthData = async (req, res) => {};
   removeUserFromBoard: MiddlewareFunctionWithAuthData = async (req, res) => {};
 
-  createColumn: MiddlewareFunctionWithAuthData = async (req, res) => {};
-  editColumn: MiddlewareFunctionWithAuthData = async (req, res) => {};
-  deleteColumn: MiddlewareFunctionWithAuthData = async (req, res) => {};
+  createColumn: MiddlewareFunctionWithAuthData = async (req, res, next) => {
+    try {
+      const board = await this.service.createColumn({
+        name: req.body.name,
+        boardId: req.params.boardId,
+      });
+      res.status(statusCodes.okStatusCode).send({ board });
+    } catch (e) {
+      next(e);
+    }
+  };
+  editColumn: MiddlewareFunctionWithAuthData = async (req, res, next) => {
+    try {
+      const board = await this.service.editColumn({
+        name: req.body.name,
+        boardId: req.params.boardId,
+        columnId: req.params.columnId,
+      });
+
+      res.status(statusCodes.okStatusCode).send({ board });
+    } catch (e) {
+      next(e);
+    }
+  };
+  deleteColumn: MiddlewareFunctionWithAuthData = async (req, res, next) => {
+    try {
+      const board = await this.service.deleteColumn({
+        boardId: req.params.boardId,
+        columnId: req.params.columnId,
+      });
+
+      res.status(statusCodes.okStatusCode).send({ board });
+    } catch (e) {
+      next(e);
+    }
+  };
 }
 
 export const boardHttpController = new BoardHttpController(boardService);

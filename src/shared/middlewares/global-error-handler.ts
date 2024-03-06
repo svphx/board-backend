@@ -9,4 +9,4 @@ export const globalErrorHandler: ErrorMiddlewareFunction = (
 ) =>
   res
     .status(error.status || statusCodes.internalStatusCode)
-    .send({ message: error.status ? error.message : errorText.internal });
+    .send({ message: error.status ? error.message : error.message });
